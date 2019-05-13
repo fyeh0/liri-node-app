@@ -8,40 +8,67 @@ var moment = require("moment");
 moment().format();
 var Spotify = require("node-spotify-api");
 var spotify = new Spotify(keys.spotify);
+var bandsintown = require("bandsintown")("codingbootcamp");
 
 const command = process.argv[2];
-const userInput = process.argv[2];
+const userInput = process.argv[3];
 
 switch (command) {
-  case movieThis():
+  case "movie-this":
+    movieThis(userInput);
+    //   console.log("movieThis");
+    console.log(userInput); // result??? define global result var, assign command and userInput to
+    break;
+  case "spotify-this":
+    spotifyThis();
     console.log(response);
     break;
-  case spotifyThis():
+  case "concert-this":
+    concertThis();
     console.log(response);
     break;
   default:
     console.log("default");
+    break;
 }
 
-function concertThis(userInput) {}
+function concertThis(userInput) {
+  bandsintown.getArtistEventList("Skrillex").then(function(events) {});
+}
 
-function movieThis() {
+function movieThis(userInput) {
   var queryUrl =
     "http://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=trilogy";
 
   axios
     .get(queryUrl)
     .then(function(response) {
-      console.log(response.data);
+      //   console.log(response.data);
+      console.log(response.data.Title);
+      console.log(response.data.Year);
+      console.log(response.data.imdbRating);
+      console.log(response.data.Ratings[1]);
+      console.log(response.data.Country);
+      console.log(response.data.Language);
+      console.log(response.data.Plot);
+      console.log(response.data.Actors);
     })
-    .catch(function(err) {
-      if (err === "") {
+    .catch(function (err) {
+      if (err) {
+          console.log("inside the err");
         axios
           .get(
             "http://www.omdbapi.com/?t=mr.nobody&y=&plot=short&apikey=trilogy"
           )
           .then(function(response) {
-            console.log("The movie's rating is: " + response.data.imdbRating);
+            console.log(response.data.Title);
+            console.log(response.data.Year);
+            console.log(response.data.imdbRating);
+            console.log(response.data.Ratings[1]);
+            console.log(response.data.Country);
+            console.log(response.data.Language);
+            console.log(response.data.Plot);
+            console.log(response.data.Actors);
           });
       }
     });
