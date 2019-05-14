@@ -1,19 +1,20 @@
 require("dotenv").config();
 var fs = require("fs");
 var mdash = require("mdash");
-var inquirer = require("inquirer");
+// var inquirer = require("inquirer");
 var axios = require("axios");
 var keys = require("./keys.js");
 var omdb = require("omdb");
 var moment = require("moment");
-moment().format();
+// moment().format();
 var Spotify = require("node-spotify-api");
 var spotify = new Spotify(keys.spotify);
 var bandsintown = require("bandsintown"); //("codingbootcamp");
 
 const command = process.argv[2];
-const userInput = process.argv[3];
+const userInput = process.argv.slice(3).join(" ");
 
+// Liri logic
 switch (command) {
   case "movie-this":
     movieThis(userInput);
@@ -23,13 +24,13 @@ switch (command) {
     break;
   case "concert-this":
     concertThis(userInput);
-    console.log("siudghi;seguh");
     break;
   case "do-this":
     doThis();
     break;
   default:
-    console.log(`Hi! I'm Liri!
+    console.log(`
+       Hi! I'm Liri!
     -------------------
     Please enter one of my following command options!
     
@@ -46,9 +47,20 @@ function concertThis(userInput) {
     userInput +
     "/events?app_id=codingbootcamp";
 
-  axios.get(queryUrl).then(function(response) {
-    console.log(response);
-  });
+  bandsintown
+    .getArtist(queryUrl)
+    .then(function(response) {
+        for (let i = 0; i < response.data.length; i++) {
+      console.log(response.data.vanue.name);
+      console.log(response.data.venue.city);
+      console.log("concert stuff here");
+        }
+    })
+    .catch(function(err) {
+      if (err) {
+        return console.log("Sorry, I didn't catch that.");
+      }
+    });
 }
 
 function movieThis(userInput) {
@@ -75,29 +87,30 @@ function movieThis(userInput) {
             "http://www.omdbapi.com/?t=mr.nobody&y=&plot=short&apikey=trilogy"
           )
           .then(function(response) {
-            console.log(response.data.Title);
-            console.log(response.data.Year);
-            console.log(response.data.imdbRating);
-            console.log(response.data.Ratings[1]);
-            console.log(response.data.Country);
-            console.log(response.data.Language);
-            console.log(response.data.Plot);
-            console.log(response.data.Actors);
+            console.log(err.response);
           });
       }
     });
 }
 
 function spotifyThis(userInput) {
-  axios.get();
   spotify
-    .search({ type: "track", query: userInput })
-    .then(function(response) {
-      console.log(response.data);
+    .search({ type: "track", query: userInput }, function(err, response) {
+        if(err) {
+            console.log("oops" + err);
+        } else {
+            console.log(`
+            ·.¸¸.·♩♪♫ I found this for you! ♫♪♩·.¸¸.·
+        Song: ${response.tracks.items[0].name}
+        Artist: ${response.tracks.items[0].artists[0].name}
+        Album: ${response.tracks.items[0].album.name}
+        Preview link: ${response.tracks.items[0].href}`)
+            // console.log("Song: " + response.tracks.items[0].name); //song name
+            // console.log("Artist: " + response.tracks.items[0].artists[0].name); // artist name
+            // console.log("Album: " + response.tracks.items[0].album.name); //album name
+            // console.log("Preview link: " + response.tracks.items[0].href); //preview link
+        }
     })
-    .catch(function(err) {
-      console.log(err);
-    });
 }
 
 function doThis() {
@@ -105,18 +118,3 @@ function doThis() {
     console.log(data);
   });
 }
-
-// inquirer
-//     .prompt([
-//         {
-//             type: "input",
-//             message: "Who are you?",
-//             name: "name"
-//         },
-//         {
-//             type: "list",
-//             message: "What would you like to do?",
-//             choices: ["Concert this", "spotify this song", "movie this", "do what it says"],
-//             name: "command"
-//         }
-//     ])
