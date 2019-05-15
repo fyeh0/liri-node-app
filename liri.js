@@ -62,18 +62,19 @@ function concertThis(userInput) {
         ==========================================
             I'll add this to your search log!
         `);
-        fs.appendFileSync("log.txt", `
+        fs.appendFile("log.txt", `
         Search item: ${userInput}
         -------------------------
         Venue: ${response.data[0].venue.name}
         Location: ${response
           .data[0].venue.city}, ${response.data[0].venue.region}
         Date: ${moment(response.data[0].datetime).format("llll")}
-        `, "utf8")
+        `, "utf8");
+        anotherSearch();
     })
     .catch(function(err) {
       if (err) {
-          fs.appendFileSync("log.txt", `
+          fs.appendFile("log.txt", `
     I'm sorry, I didn't find anything for ${userInput}"
           `, "utf8");
         return console.log("Sorry, I didn't catch that.");
@@ -106,21 +107,22 @@ function movieThis(userInput) {
      ==========================================
         I'll add this to your search log!
         `);
-        fs.appendFileSync("log.txt", `
+        fs.appendFile("log.txt", `
         Search item: ${userInput}
         -------------------------
         Title: ${response.data.Title}
         Year: ${response.data.Year}
         IMDB Rating: ${response.data.imdbRating}
-        Rotten Tomatoes Rating: ${response.data.Ratings[1]}
+        Rotten Tomatoes Rating: ${response.data.Ratings[1].Value}
         Country: ${response.data.Country}
         Language: ${response.data.Language}
         Plot: ${response.data.Plot}
         Cast: ${response.data.Actors}
         `, "utf8");
+        anotherSearch();
     })
     .catch(function(err) {
-        fs.appendFileSync("log.txt", `
+        fs.appendFile("log.txt", `
     I'm sorry, I didn't find anything for ${userInput}"
           `, "utf8");
       console.log(err.response);
@@ -133,7 +135,7 @@ function spotifyThis(userInput) {
   }
   spotify.search({ type: "track", query: userInput }, function(err, response) {
     if (err) {
-        fs.appendFileSync("log.txt", `
+        fs.appendFile("log.txt", `
     I'm sorry, I didn't find anything for ${userInput}"
           `, "utf8");
       console.log("Sorry, I didn't catch that.");
@@ -149,7 +151,7 @@ function spotifyThis(userInput) {
          ==========================================
             I'll add this to your search log!
             `);
-        fs.appendFileSync("log.txt", `
+        fs.appendFile("log.txt", `
         Search item: ${userInput}
         -------------------------
         Song: ${response.tracks.items[0].name}
@@ -157,9 +159,9 @@ function spotifyThis(userInput) {
         Album: ${response.tracks.items[0].album.name}
         Preview link: ${response.tracks.items[0].href}
         `, "utf8");
-    }
-  })
-//   return anotherSearch();
+      }
+      anotherSearch();
+    })
 }
 
 function doThis() {
@@ -169,23 +171,23 @@ function doThis() {
   });
 }
 
-// function anotherSearch() {
-//     inquirer
-//         .prompt([
-//             {
-//                 type: "confirm",
-//                 message: "Are you still looking for something?",
-//                 name: "anotherSearch",
-//             }
-//         ]).then(function(response) {
-//             if (response.anotherSearch) {
-//                 console.log("Okay!");
-//                 runLiri();
-//             } else {
-//                 console.log("¯\_(ツ)_/¯");
-//                 console.log("Okay, bye!");
-//             }
-//         })
-// }
+function anotherSearch() {
+    inquirer
+        .prompt([
+            {
+                type: "confirm",
+                message: "Are you still looking for something?",
+                name: "anotherSearch",
+            }
+        ]).then(function(response) {
+            if (response.anotherSearch) {
+                console.log("Okay!");
+                runLiri();
+            } else {
+                console.log("¯\_(ツ)_/¯");
+                console.log("Okay, bye!");
+            }
+        })
+}
 
 runLiri(command, userInput);
