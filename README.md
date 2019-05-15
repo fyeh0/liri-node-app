@@ -21,3 +21,7 @@ Language Interpretation and Recognition Interface command line node application
   - node liri.js spotify-this <song name> // searches Node Spotify API and displays song information
   - node liri.js do-this <random.txt file command>
     ```
+
+### Live Demo
+
+[Watch the demo](https://drive.google.com/file/d/10Qsr-C29id706YAMIJqHO8CyW6917Q5m/view?usp=sharing)
