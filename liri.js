@@ -97,7 +97,7 @@ function movieThis(userInput) {
         Title: ${response.data.Title}
         Year: ${response.data.Year}
         IMDB Rating: ${response.data.imdbRating}
-        Rotten Tomatoes Rating: ${response.data.Ratings[1]}
+        Rotten Tomatoes Rating: ${response.data.Ratings[1].Value}
         Country: ${response.data.Country}
         Language: ${response.data.Language}
         Plot: ${response.data.Plot}

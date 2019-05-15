@@ -50,3 +50,25 @@
         Album: The Hits--Chapter One
         Preview link: https://api.spotify.com/v1/tracks/6e40mgJiCid5HRAGrbpGA6
         
+        Search item: rear window
+        -------------------------
+        Title: Rear Window
+        Year: 1954
+        IMDB Rating: 8.5
+        Rotten Tomatoes Rating: [object Object]
+        Country: USA
+        Language: English
+        Plot: A wheelchair-bound photographer spies on his neighbors from his apartment window and becomes convinced one of them has committed murder.
+        Cast: James Stewart, Grace Kelly, Wendell Corey, Thelma Ritter
+        
+        Search item: rear window
+        -------------------------
+        Title: Rear Window
+        Year: 1954
+        IMDB Rating: 8.5
+        Rotten Tomatoes Rating: [object Object]
+        Country: USA
+        Language: English
+        Plot: A wheelchair-bound photographer spies on his neighbors from his apartment window and becomes convinced one of them has committed murder.
+        Cast: James Stewart, Grace Kelly, Wendell Corey, Thelma Ritter
+        
