@@ -14,13 +14,13 @@ Language Interpretation and Recognition Interface command line node application
 
 ### Commands
 
-    Terminal / Bash
-    ```
-  - node liri.js movie-this <movie title> // searches OMDB API and displays movie information
-  - node liri.js concert-this <band/artist name> // searches Bandsintown API and displays show information
-  - node liri.js spotify-this <song name> // searches Node Spotify API and displays song information
-  - node liri.js do-this <random.txt file command>
-    ```
+Terminal / Bash
+  ```
+node liri.js movie-this <movie title> // searches OMDB API and displays movie information
+node liri.js concert-this <band/artist name> // searches Bandsintown API and displays show information
+node liri.js spotify-this <song name> // searches Node Spotify API and displays song information
+node liri.js do-this <random.txt file command>
+  ```
 
 ### Live Demo
 
